@@ -100,6 +100,6 @@ def createMessage(request):
             return Response({'detail':'this link is invalid. Try a valid link '.title()},status=status.HTTP_403_FORBIDDEN)
 
         msg=Message.objects.create(text=text)
-        myMessages=MyMessages.objects.get(user=user)
+        myMessages,c=MyMessages.objects.get_or_create(user=user)
         myMessages.messages.add(msg)
         return Response({'detail':'message send'},status=status.HTTP_201_CREATED)
