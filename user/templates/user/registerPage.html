@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+
+
+
+<style media="screen">
+
+  /* input#id_username {
+      width: 700px;
+      border-radius: 5px;
+      border-color: #000;
+  }
+
+input#id_password {
+    width: 700px;
+    border-radius: 5px;
+    border-color: #000;
+}
+
+input[type="submit"] {
+    margin-top: 20px;
+    color: black;
+    background: #06050536;
+    border: 0px;
+    padding: 5px;
+    width: 70px;
+    border-radius: 5px;
+}
+
+.checkout_top {
+    height: 150px;
+    /* padding-left: 80px; */
+} */
+
+</style>
+
+
+<div class="checkout-form">
+  <div class="container ch-section">
+
+      <form method="post" novalidate>
+      <h3>Create account</h3>
+        {% load widget_tweaks %}
+        {% csrf_token %}
+
+        {% for hidden_field in form.hidden_fields %}
+          {{ hidden_field }}
+        {% endfor %}
+
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger" role="alert">
+            {% for error in form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% for field in form.visible_fields %}
+          <div class="form-group">
+            {{ field.label_tag }}
+
+            {% if form.is_bound %}
+              {% if field.errors %}
+                {% render_field field class="form-control  is-invalid" %}
+                {% for error in field.errors %}
+                  <div class="invalid-feedback">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% render_field field class="form-control  is-valid" %}
+              {% endif %}
+            {% else %}
+              {% render_field field class="form-control hello" placeholder=field.label %}  <!--when the from render at first with no error this line of code exicute!-->
+            {% endif %}
+
+            {% if field.help_text %}
+              <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+            {% endif %}
+          </div>
+        {% endfor %}
+          <button type="submit" class="btn btn">Submit</button>
+
+      </form>
+  </div>
+
+</div>
+
+
+{% endblock %}

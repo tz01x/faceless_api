@@ -1,0 +1,111 @@
+{%extends 'base.html'%}
+{%block body%}
+
+<div class="container user-profile">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="self-info">
+        <h2>{{request.user.username}}</h2>
+        <h5>{{request.user.email}}</h5>
+        <h5>{{request.user.profile.phone}}</h5>
+        <h5>{{request.user.profile.location}}</h5>
+      </div>
+      <!-- section 1 start -->
+      <div class="user-shop">
+        <h6>your previous orders</h6>
+          {%for i in objects%}
+          <a href="{%url 'med_service:order_details' slug=i.slug%}">{{i.created}} </a>
+          {%empty%}
+        <div class="empty_notic">
+          <h5>
+            You haven't order any prodect yet!
+          </h5>
+        </div>
+        {%endfor%}
+      </div>
+      <!-- section 1 end -->
+      <!-- pagination -->
+      {% if objects.has_other_pages %}
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          {% if objects.has_previous %}
+            <li class="page-item" ><a class="page-link" href="?order_page={{ objects.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="page-item disabled">
+           <a class="page-link" href="#" tabindex="-1"><span>&laquo;</span></a>
+          </li>
+          {% endif %}
+          {% for i in objects.paginator.page_range %}
+            {% if objects.number == i %}
+              <li class="page-item active">
+            <a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a>
+            </li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="?order_page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if objects.has_next %}
+            <li class="page-item" ><a class="page-link" href="?order_page={{ objects.next_page_number }}">&raquo;</a></li>
+          {% else %}
+
+            <li class="page-item disabled">
+           <a class="page-link" href="#" tabindex="-1"><span>&raquo;</span></a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
+      <!--pagination end -->
+      {%if prescription%}
+
+      <!-- section 2 start -->
+      <div class="user-prescription">
+        <h6>Orders by prescription</h6>
+          {%for i in prescription%}
+          <a href="{%url 'med_service:quickorder_details' pk=i.pk%}">
+            <p>{{i}} {{i.created}}</p>
+          </a>
+          {%endfor%}
+      </div>
+
+      <!-- section 2 end  -->
+
+      <!-- pagination -->
+      {% if prescription.has_other_pages %}
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          {% if prescription.has_previous %}
+            <li class="page-item" ><a class="page-link" href="?prescription_page={{ prescription.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="page-item disabled">
+           <a class="page-link" href="#" tabindex="-1"><span>&laquo;</span></a>
+          </li>
+          {% endif %}
+          {% for i in prescription.paginator.page_range %}
+            {% if prescription.number == i %}
+              <li class="page-item active">
+            <a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a>
+            </li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="?prescription_page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if prescription.has_next %}
+            <li class="page-item" ><a class="page-link" href="?prescription_page={{ prescription.next_page_number }}">&raquo;</a></li>
+          {% else %}
+
+            <li class="page-item disabled">
+           <a class="page-link" href="#" tabindex="-1"><span>&raquo;</span></a>
+          </li>
+          {% endif %}
+        </ul>
+        </nav>
+      {% endif %}
+      <!--pagination end -->
+      {%endif%}
+    </div>
+
+  </div>
+</div>
+
+{%endblock%}
