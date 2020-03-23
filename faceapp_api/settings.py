@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2(5!m8+g+k*f17^ryqqs1f0wmy*q^x^-13yff2duitcz6@h*z2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['https://tumzied.pythonanywhere.com/','*']
 
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'user',
     'main',
+    'webpack_loader',
+
 ]
 
 MIDDLEWARE = [
@@ -104,6 +106,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -125,9 +134,9 @@ STATIC_URL = '/static/'
 MEDIA_URL ='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static','static_dir'),
+    os.path.join(BASE_DIR, 'static'),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR,'static','static_root','static')
+# STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 
 from .cors_header import  *

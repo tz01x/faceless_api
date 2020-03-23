@@ -92,4 +92,6 @@ local_settings.py
 
 static_root/
 
+db.sqlite3
 
+node_modules
