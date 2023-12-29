@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2(5!m8+g+k*f17^ryqqs1f0wmy*q^x^-13yff2duitcz6@h*z2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['https://tumzied.pythonanywhere.com/','*']
 
